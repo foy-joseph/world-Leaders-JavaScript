@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Leaders</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div>
+        <h1>World Leaders</h1>
+    </div>
+    <div>
+        <button id="add" class="button" onclick="addLeader(0)">Add</button>
+        <button id="swap" class="button" onclick="swapLeader()">Swap</button>
+        <button id="delete" class="button" onclick="deleteLeader()">Delete</button>
+    </div>
+    <div>
+        <h2>Point to your leader</h2>
+    </div>
+    
+    <div id="printLeadersContainer">
+        <!--This is where the leaders images are placed-->
+    </div>
+    <div id="namesListDiv">
+        <!--list displaying leader names-->
+        <ol id='nameList' class="names"></ol>
+
+    </div>
+
+    <script>
+        // COUNT THE NUMBER OF LEADERS DISPLAYED TO SCREEN
+        var numOfLeadersDisplayed = 0;
+        // CREATE AN ARRAY OF THE NAMES OF THE LEADERS TO REFERENCE WHEN ADDING ANOTHER LEADER
+        const leadersDisplayed = [];
+
+        // CREATE AND POPULATE ARRAY OF LEADERS' NAME, IMAGE PATH AND STATE
+        const biden = {fullName:"Joe Biden", imagePath:"images/biden.png", state:"USA"};
+        const trudeau = {fullName:"Justin Trudeau", imagePath:"images/trudeau.png", state:"Canada"};
+        const draghi = {fullName:"Mario Draghi", imagePath:"images/Draghi.png", state:"Italy"};
+        const jinping = {fullName:"Xi Jinping", imagePath:"images/jinping.jpg", state:"China"};
+        const johnson = {fullName:"Boris Johnson", imagePath:"images/johnson.png", state:"United Knigdom"};
+        const macron = {fullName:"Emmanuel Macron", imagePath:"images/Macron.png", state:"France"};
+        const merkel = {fullName:"Angela Merkel", imagePath:"images/merkel.jpg", state:"Germany"};
+        const morrison = {fullName:"Scott Morrison", imagePath:"images/morrison.png", state:"Australia"};
+        const suga = {fullName:"Yoshihide Suga", imagePath:"images/suga.png", state:"Japan"};
+        const vonderleyen = {fullName:"Ursula von der Layen", imagePath:"images/vonderleyen.png", state:"European Commission"};
+        let leaders = [biden, trudeau, draghi, jinping, johnson, macron, merkel, morrison, suga, vonderleyen];
+
+        function addLeader(n){ // TAKE IN PARAMETER FOR RECURSION
+            if(numOfLeadersDisplayed < leaders.length){
+                let nthLeader = leaders[n];
+                if(leadersDisplayed.includes(nthLeader.fullName)){
+                    // RECURSIVE FUNCTION MEANS THE FUNCTION WILL RECUR UNTIL LEADER WHO IS NOT DISPLAYED CAN BE ADDED
+                    addLeader(n+1);
+                    return
+                }
+                else{
+                    // CREATE IMAGE ELEMENT
+                    var img = document.createElement("img");
+                    img.src = nthLeader.imagePath; // SET SOURCE
+                    var container = document.getElementById("printLeadersContainer");
+                    let div = document.createElement('div');
+                    let span = document.createElement('span');
+                    span.innerText = nthLeader.fullName;
+                    div.className = 'toolTip';
+                    span.className = 'toolTipText'; // FOR CSS
+                    div.append(span);
+                    div.append(img);
+                    // APPEND THE DIV TO THE CONTAINER OR IMAGE DISPLAY
+                    container.appendChild(div);
+                
+                    //LIST DISPLAYING
+                    let listEntry = document.createElement('li');
+                    const listText = document.createTextNode(nthLeader.fullName + " - " + nthLeader.state);
+                    listEntry.appendChild(listText);
+                    document.getElementById('nameList').appendChild(listEntry);  
+                    
+                    //ADD NEW LEADER NAME TO ARRAY OF NAMES DISPLAYED
+                    leadersDisplayed.push(nthLeader.fullName);
+                    numOfLeadersDisplayed++;
+                }
+            }
+        }
+        
+        function swapLeader(){
+            if(numOfLeadersDisplayed > 1){
+                var container = document.getElementById('printLeadersContainer');
+                var li = document.getElementById('nameList');
+                // IMAGE REORDERING
+                var imgTemp = container.firstElementChild;
+                container.removeChild(container.firstElementChild);
+                container.appendChild(imgTemp);
+
+                // LIST ORDER SORTING
+                var listEntryTemp = li.firstElementChild;
+                li.removeChild(li.firstElementChild);
+                li.appendChild(listEntryTemp);
+
+                // SORT THE ARRAY OF LEADERS DISPLAYED
+                leadersDisplayed.push(leadersDisplayed.shift());
+            }
+        }
+
+        function deleteLeader(){
+            var container = document.getElementById("printLeadersContainer");
+            var li = document.getElementById("nameList");
+            if(numOfLeadersDisplayed>0){ // CHECK IF THERE ARE LEADERS DISPLAYING
+                // REMOVE LEADER FROM IMG, LIST AND ARRAY OF NAMES
+                container.removeChild(container.lastElementChild);
+                li.removeChild(li.lastElementChild);
+                leadersDisplayed.pop();
+                numOfLeadersDisplayed--;
+            }
+        }
+
+ 
+</script>
+</body>
+</html>

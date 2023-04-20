@@ -1,0 +1,67 @@
+body{
+  align-content: center;
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+  background: rgb(204,204,204);
+  background: linear-gradient(90deg, rgba(204,204,204,1) 0%, rgba(9,9,121,1) 84%, rgba(0,212,255,1) 100%);
+}
+
+
+ol{
+  text-align: left;
+}
+
+button{
+  background-color: #3d9be9; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+#printLeadersContainer img{
+    height: 200px;
+    width: 150px;
+    border: 5px solid #000;
+    border-radius: 10px;
+    margin: 12px; 
+}
+
+#printLeadersContainer > text{
+    height: 10px;
+    font-size: small;
+    background-color: red;
+    opacity: 0.5;
+    border: 5px solid #000;
+    border-radius: 10px;
+    margin: 12px;
+}
+
+/* Tooltip text */
+.toolTip .toolTipText{
+  visibility: hidden;
+  width: 150px;
+
+  background-color: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  text-align: center;
+  padding: 5px;
+  border-radius: 6px; 
+  /* Position the tooltip text - see examples below! */
+  position: fixed;
+  z-index: 1;
+  margin: 12px;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.toolTip:hover .toolTipText {
+  visibility: visible;
+  font-size: large;
+}
+
+div {
+  display: inline
+}
